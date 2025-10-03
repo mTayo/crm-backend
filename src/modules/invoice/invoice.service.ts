@@ -14,7 +14,7 @@ export const createInvoicePayment = async (data:  CreateInvoicePaymentDto, invoi
             throw new Error('Invoice not found');
         }
 
-        const paidSoFar = invoice.payments.reduce((sum, p) => sum + p.amount, 0);
+        const paidSoFar = invoice.payments.reduce((sum:any, p: any) => sum + p.amount, 0);
 
         if (paidSoFar + data.amount > invoice.total) {
           throw new Error("Payment exceeds invoice total" );
