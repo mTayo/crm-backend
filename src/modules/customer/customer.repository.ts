@@ -28,3 +28,18 @@ export const findById = (id: string) => {
     });
 };
 
+
+export const findAll = () => {
+  return prisma.customer.findMany({
+   
+    include: {
+      jobs: {
+        include: {
+          invoice: true,
+          appointment: true,
+        },
+      },
+    },
+  });
+};
+

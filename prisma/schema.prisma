@@ -88,7 +88,7 @@ model Customer {
 model Job {
   id          String          @id @default(uuid())
   title       String
-  description String
+  description String       @db.Text
   status      JobStatus    @default(NEW)
   customerId  String
   customer    Customer     @relation(fields: [customerId], references: [id])

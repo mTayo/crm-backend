@@ -293,7 +293,8 @@ export function RegisterRoutes(app: Router) {
         const argsInvoiceController_createInvoicePayment: Record<string, TsoaRoute.ParameterSchema> = {
                 body: {"in":"body","name":"body","required":true,"ref":"CreateInvoicePaymentDto"},
                 invoiceId: {"in":"path","name":"invoiceId","required":true,"dataType":"string"},
-                badRequest: {"in":"res","name":"400","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"message":{"dataType":"string","required":true}}},
+                req: {"in":"request","name":"req","required":true,"dataType":"object"},
+                badRequest: {"in":"res","name":"500","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"message":{"dataType":"string","required":true}}},
         };
         app.post('/api/invoice/:invoiceId/payments',
             authenticateMiddleware([{"jwt":[]}]),
@@ -387,6 +388,37 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsCustomerController_getAllCustomers: Record<string, TsoaRoute.ParameterSchema> = {
+                req: {"in":"request","name":"req","required":true,"dataType":"object"},
+        };
+        app.get('/api/customer',
+            authenticateMiddleware([{"jwt":[]}]),
+            ...(fetchMiddlewares<RequestHandler>(CustomerController)),
+            ...(fetchMiddlewares<RequestHandler>(CustomerController.prototype.getAllCustomers)),
+
+            async function CustomerController_getAllCustomers(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsCustomerController_getAllCustomers, request, response });
+
+                const controller = new CustomerController();
+
+              await templateService.apiHandler({
+                methodName: 'getAllCustomers',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsAuthController_login: Record<string, TsoaRoute.ParameterSchema> = {
                 body: {"in":"body","name":"body","required":true,"ref":"LoginDto"},
                 badRequest: {"in":"res","name":"400","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"message":{"dataType":"string","required":true}}},
@@ -451,6 +483,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsAppointmentController_createAppointment: Record<string, TsoaRoute.ParameterSchema> = {
                 body: {"in":"body","name":"body","required":true,"ref":"CreateAppointmentDto"},
+                req: {"in":"request","name":"req","required":true,"dataType":"object"},
                 badRequest: {"in":"res","name":"400","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"message":{"dataType":"string","required":true}}},
         };
         app.post('/api/appointment/create',

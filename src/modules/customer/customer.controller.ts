@@ -60,4 +60,16 @@ export class CustomerController extends Controller {
     const result = await CustomerService.getCustomer(customerId);
     return ResponseManager.success(result, "Customer profile retrieved");
   }
+
+  @Get("/")
+  @Security("jwt")
+  public async getAllCustomers(
+    @Request() req: any
+  ) {
+    if (!req.user?.id) {
+      throw { status: 401, message: "User not authenticated" };
+    }
+    const result = await CustomerService.getAllCustomer();
+    return ResponseManager.success(result, "Customers retrieved");
+  }
 }

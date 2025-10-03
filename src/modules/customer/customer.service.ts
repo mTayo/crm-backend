@@ -32,4 +32,17 @@ export const getCustomer = async (customerIdId: string ) => {
     }
     
 };
+export const getAllCustomer = async ( ) => {
+    try {
+        const findCustomer = await CustomerRepository.findAll();
+        if (!findCustomer) {
+            throw new Error('Customer not found');
+        }
+        return findCustomer;
+    } catch (err) {
+        throw err; 
+    }
+    
+};
+
 
