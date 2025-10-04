@@ -19,6 +19,7 @@ export const findById = (id: string) => {
           payments: true,
         },
       },
+      history: true,
       customer: true,
       appointment: true,
     },

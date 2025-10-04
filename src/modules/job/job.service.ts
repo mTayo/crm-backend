@@ -23,7 +23,7 @@ export const updateJob = async (data:  UpdateJobDto, userId:string) => {
             throw { status: 409, message: "Cannot mark job as Done without appointment" };
         }
         const newJob = await JobRepository.updateJobById(data);
-        JobRepository.updateJobStatusHistory({
+        await JobRepository.updateJobStatusHistory({
             jobId: data.id,
             status: findJob.status,
             newStatus: data.status,

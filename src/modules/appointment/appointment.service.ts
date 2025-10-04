@@ -15,8 +15,8 @@ export const createAppointment = async (data: CreateAppointmentDto, userId:strin
             };
         }
         const newAppointment = await AppointmentRepository.createAppointment(data);
-        JobRepository.updateJobById({id: newAppointment.jobId, status: JobStatus.SCHEDULED });
-        JobRepository.updateJobStatusHistory({
+        await JobRepository.updateJobById({id: newAppointment.jobId, status: JobStatus.SCHEDULED });
+        await JobRepository.updateJobStatusHistory({
             jobId: newAppointment.jobId,
             status: JobStatus.NEW,
             newStatus: JobStatus.SCHEDULED,
