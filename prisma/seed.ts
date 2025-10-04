@@ -3,7 +3,14 @@ import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 async function main() {
- 
+    await prisma.appointment.deleteMany();
+    await prisma.invoiceLineItem.deleteMany();
+    await prisma.payment.deleteMany();
+    await prisma.invoice.deleteMany();
+    await prisma.jobStatusHistory.deleteMany();
+    await prisma.job.deleteMany();
+    await prisma.customer.deleteMany();
+    await prisma.user.deleteMany();
   const customers = await prisma.customer.createMany({
     data: [
       {
