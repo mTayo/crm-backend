@@ -17,15 +17,33 @@ export const findById = (id: string) => {
       invoice: {
         include: {
           payments: true,
+          lineItems: true,
         },
       },
       history: true,
       customer: true,
-      appointment: true,
+      appointment:{ 
+        include: {
+           technicianData: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+        },
+      }
     },
   });
 };
 
+export const findJobById = (id: string) => {
+  return prisma.job.findUnique({
+    where: { id },
+    include: {
+      appointment:true,
+    },
+  });
+};
 export const updateJobById = (data: UpdateJobDto) => {
   return prisma.job.update({
     where: { id: data.id },
@@ -41,9 +59,14 @@ export const findAll = (filters?: { status?: JobStatus; customerId?: string }) =
       ...(filters?.customerId && { customerId: filters.customerId?.toString() }),
     },
     include: {
-      invoice: true,
+      invoice: {
+        include: {
+          payments: true,
+          lineItems: true,
+        },
+      },
       customer: true,
-      appointment: true,
+      // appointment: true,
     },
   });
 }

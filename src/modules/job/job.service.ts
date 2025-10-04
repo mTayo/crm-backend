@@ -15,7 +15,7 @@ export const createJob = async (data:  CreateJobDto) => {
 
 export const updateJob = async (data:  UpdateJobDto, userId:string) => {
     try {
-        const findJob = await JobRepository.findById(data.id);
+        const findJob = await JobRepository.findJobById(data.id);
         if (!findJob) {
             throw new Error('Job not found');
         }

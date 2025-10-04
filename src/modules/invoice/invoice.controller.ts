@@ -44,7 +44,7 @@ export class InvoiceController extends Controller {
       }
          
       const result = await InvoiceService.createInvoicePayment(data , invoiceId, req.user?.id);
-      return ResponseManager.success( result, "Invoice created successfully");
+      return ResponseManager.success( result, "Payment created successfully");
     } catch (err: any) {
       return badRequest(400, { message: err.message });
     }

@@ -24,6 +24,7 @@ model User {
   role      String   @default("office") // could be "office" or "technician"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  appointments  Appointment[]  @relation("UserAppointments") 
 
 }
 
@@ -70,7 +71,7 @@ model InvoiceLineItem {
   id        String   @id @default(uuid())
   invoiceId String
   invoice   Invoice  @relation(fields: [invoiceId], references: [id])
-  description String
+  description String @db.Text
   quantity   Int
   unitPrice  Float
   lineTotal  Float
@@ -116,6 +117,7 @@ model Appointment {
   technician  String
   startTime   DateTime
   endTime     DateTime
+  technicianData   User     @relation("UserAppointments", fields: [technician], references: [id])  
 }
 
 

@@ -45,4 +45,22 @@ export const createInvoicePayment = async (data:  CreateInvoicePaymentDto, invoi
 };
 
 
+export function calculateInvoiceTotal(
+  lineItems: { quantity: number; unitPrice: number }[],
+  taxRate: number
+) {
+  const subtotal = lineItems.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
+  const tax = subtotal * taxRate;
+  const total = subtotal + tax;
+  return { subtotal, tax, total };
+}
 
+
+export function applyPayment(invoice: any, amount: number) {
+  const totalPaid = invoice.payments.reduce((sum: number, p: any) => sum + p.amount, 0);
+  const remaining = invoice.total - totalPaid;
+
+  if (amount > remaining) throw new Error('Payment exceeds remaining balance');
+
+  return { remaining: remaining - amount };
+}

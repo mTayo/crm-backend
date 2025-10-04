@@ -60,3 +60,10 @@ export const getAllJobs = async (filters?: {  technicianId?: string }) => {
 };
 
 
+export function hasScheduleConflict(existing: any[], candidate: any) {
+  return existing.some(
+    (appt) =>
+      candidate.startTime < appt.endTime && candidate.endTime > appt.startTime
+  );
+}
+
